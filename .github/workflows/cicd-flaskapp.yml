@@ -1,0 +1,19 @@
+name: Build and Deploy myapp
+run-name: ${{ github.actor }} is Build and deploy myapp using GitHub Actions 🚀
+on: [push]
+jobs:
+# setup server
+  build-image:
+    runs-on: runner1
+    env:
+      docker_username: ${{ secrets.DOCKER_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_PASSWORD }}
+    steps: 
+    - uses: actions/checkout@v4
+    - name: Login to the docker hub
+      run: docker login -u $docker_username -p "$docker_password"
+    - name: building the docker image
+      run: docker build -t "${docker_username}/myapp:latest" .
+    - name: pushing the docker image
+      run: docker push $docker_username/myapp:latest
+
