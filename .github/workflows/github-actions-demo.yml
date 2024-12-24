@@ -9,11 +9,13 @@ jobs:
     - run: ./setup-server.sh
 # configure a server
   configure-server:
+    needs: setup-server
     runs-on: runner1
     steps: 
     - run: ./configure-server.sh
 # test a server
   test-server:
+    needs: configure-server
     runs-on: runner1
     steps: 
     - run: ./test-server.sh
