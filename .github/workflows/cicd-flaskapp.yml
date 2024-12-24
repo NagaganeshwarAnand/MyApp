@@ -13,7 +13,7 @@ jobs:
     - name: Login to the docker hub
       run: docker login -u $docker_username -p "$docker_password"
     - name: building the docker image
-      run: docker build -t "${docker_username}/myapp:latest" .
+      run: docker build --network host -t "${docker_username}/myapp:latest" .
     - name: pushing the docker image
       run: docker push $docker_username/myapp:latest
 
